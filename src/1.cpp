@@ -41,9 +41,7 @@ int main() noexcept {
             printf("%d\n", i * (TARGET - i));
             return 0;
         }
-        else {
-            found[i] = true;
-        }
+        found[i] = true;
     }
 
     printf("Not found\n");
