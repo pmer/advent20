@@ -9,9 +9,11 @@
 #define TARGET 2020
 
 int main() noexcept {
+    // Read the input data.
     String data;
     readFile("input", data);
 
+    // Parse the integers.
     Vector<StringView> lines = splitStr(data, "\n");
 
     Vector<int> numbers;
@@ -30,18 +32,28 @@ int main() noexcept {
         numbers.push_back(i);
     }
 
-    Vector<bool> found;
-    found.resize(TARGET + 1);
-    for (size_t i = 0; i < found.size; i++) {
-        found[i] = false;
+    // We start having not seen anything.
+    Vector<bool> seen;
+    seen.resize(TARGET + 1);
+    for (size_t i = 0; i < seen.size; i++) {
+        seen[i] = false;
     }
 
     for (int i : numbers) {
-        if (found[TARGET - i]) {
-            printf("%d\n", i * (TARGET - i));
+        // The compliment to i.
+        //   i + j = TARGET
+        int j = TARGET - i;
+
+        // If we've seen the necessary compliment for TARGET, we are done.
+        if (seen[j]) {
+            printf("%d\n", i * j);
             return 0;
         }
-        found[i] = true;
+        // Otherwise, if we ever counter j later on, we'll know we've already
+        // seen i.
+        else {
+            seen[i] = true;
+        }
     }
 
     printf("Not found\n");
