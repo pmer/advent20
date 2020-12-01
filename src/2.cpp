@@ -1,3 +1,6 @@
+// Time: O(n^2)
+// Memory: O(n)
+
 #include "os/c.h"
 #include "os/os.h"
 #include "util/int.h"
