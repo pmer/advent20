@@ -162,11 +162,15 @@ endif()
 
 add_library(tsunagari ${TSUNAGARI_SOURCES})
 
-add_executable(1 ${ADVENT}/src/1.cpp)
-target_link_libraries(1 tsunagari)
+add_executable(1a ${ADVENT}/src/1a.cpp)
+target_link_libraries(1a tsunagari)
+add_executable(1b ${ADVENT}/src/1b.cpp)
+target_link_libraries(1b tsunagari)
 
-add_executable(2 ${ADVENT}/src/2.cpp)
-target_link_libraries(2 tsunagari)
+add_executable(2a ${ADVENT}/src/2a.cpp)
+target_link_libraries(2a tsunagari)
+add_executable(2b ${ADVENT}/src/2b.cpp)
+target_link_libraries(2b tsunagari)
 
 include_directories(${HERE}/src)
 
