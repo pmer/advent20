@@ -10,5 +10,5 @@ ninja
 
 # Run
 cd ../data/1
-../../build/1
+../../build/1a
 ```
