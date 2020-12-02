@@ -9,10 +9,8 @@
 #include "util/vector.h"
 
 int main() noexcept {
-    StringView path = "input";
-
     MappedFile file;
-    if (!makeMappedFile(path, file)) {
+    if (!makeMappedFile(file, "input")) {
         printf("Could not open input\n");
         return 1;
     }
