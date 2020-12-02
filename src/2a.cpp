@@ -2,22 +2,26 @@
 // Memory: O(n)
 
 #include "os/c.h"
-#include "os/os.h"
+#include "os/mapped-file.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
 #include "util/vector.h"
 
 int main() noexcept {
-    String data;
-    readFile("input", data);
+    StringView path = "input";
+
+    MappedFile file;
+    if (!makeMappedFile(path, file)) {
+        printf("Could not open input\n");
+        return 1;
+    }
 
     Vector<StringView> lines;
     Vector<StringView> tokens;
-    Vector<int> range;
     int numValid = 0;
 
-    splitStr(lines, data, "\n");
+    splitStr(lines, file.data, "\n");
     for (StringView line : lines) {
         tokens.clear();
         splitStr(tokens, line, " ");
@@ -30,13 +34,11 @@ int main() noexcept {
         StringView needleToken = tokens[1];
         StringView haystackToken = tokens[2];
 
-        range.clear();
-        if (!parseRanges(range, rangeToken)) {
+        int lo, hi;
+        if (!parseRange(lo, hi, rangeToken)) {
             printf("Invalid range: %s\n", String(rangeToken).null());
             return 1;
         }
-        int lower = range[0];
-        int higher = range[range.size - 1];
 
         if (needleToken.size != 2 ||
             !('a' <= needleToken[0] && needleToken[0] <= 'z') ||
@@ -46,7 +48,7 @@ int main() noexcept {
         }
         char needle = needleToken[0];
 
-        if (haystackToken.size < lower) {
+        if (haystackToken.size < lo) {
             continue;
         }
 
@@ -55,7 +57,7 @@ int main() noexcept {
             found += needle == letter;
         }
 
-        bool valid = lower <= found && found <= higher;
+        bool valid = lo <= found && found <= hi;
         if (valid) {
             numValid += 1;
         }
