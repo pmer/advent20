@@ -15,12 +15,12 @@ int main() noexcept {
         return 1;
     }
 
-    Vector<StringView> lines;
     Vector<StringView> tokens;
     int numValid = 0;
 
-    splitStr(lines, file.data, "\n");
-    for (StringView line : lines) {
+    Lines lines = readLines(file.data);
+
+    for (StringView line = lines++; line.size; line = lines++) {
         tokens.clear();
         splitStr(tokens, line, " ");
         if (tokens.size != 3) {
