@@ -116,6 +116,7 @@ main() noexcept {
 
     splitStr(lines, data, "\n");
     for (StringView line : lines) {
+        // Split the line into three tokens.
         tokens.clear();
         splitStr(tokens, line, " ");
         if (tokens.size != 3) {
@@ -127,6 +128,7 @@ main() noexcept {
         StringView needleToken = tokens[1];
         StringView haystackToken = tokens[2];
 
+        // Extract the range.
         range.clear();
         if (!parseRanges(range, rangeToken)) {
             printf("Invalid range: %s\n", String(rangeToken).null());
@@ -135,6 +137,7 @@ main() noexcept {
         int lower = range[0];
         int higher = range[range.size - 1];
 
+        // Extract the needle.
         if (needleToken.size != 2 ||
             !('a' <= needleToken[0] && needleToken[0] <= 'z') ||
             needleToken[1] != ':') {
@@ -143,16 +146,14 @@ main() noexcept {
         }
         char needle = needleToken[0];
 
-        if (haystackToken.size < lower) {
-            continue;
-        }
-
-        int found = 0;
+        // Count the occurences.
+        int occurences = 0;
         for (char letter : haystackToken) {
-            found += needle == letter;
+            occurences += needle == letter;
         }
 
-        bool valid = lower <= found && found <= higher;
+        // If occurences are in the right range, increment numValid.
+        bool valid = lower <= occurences && occurences <= higher;
         if (valid) {
             numValid += 1;
         }
