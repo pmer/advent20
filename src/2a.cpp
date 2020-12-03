@@ -60,10 +60,7 @@ main() noexcept {
 
     for (StringView line = lines++; line.size; line = lines++) {
         // Extract the range.
-        StringView range = StringView(
-            line.data,
-            line.find(' ')
-        );
+        StringView range = StringView(line.data, line.find(' '));
 
         int lo, hi;
         parseRange(lo, hi, range);
