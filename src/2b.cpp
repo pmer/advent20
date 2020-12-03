@@ -17,6 +17,7 @@ int main() noexcept {
 
     Vector<StringView> tokens;
     int numValid = 0;
+    String buf;
 
     Lines lines = readLines(file.data);
 
@@ -33,7 +34,7 @@ int main() noexcept {
         StringView haystackToken = tokens[2];
 
         int lo, hi;
-        if (!parseRange(lo, hi, rangeToken)) {
+        if (!parseRange(lo, hi, rangeToken, buf)) {
             printf("Invalid range: %s\n", String(rangeToken).null());
             return 1;
         }

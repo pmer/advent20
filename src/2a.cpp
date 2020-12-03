@@ -2,23 +2,24 @@
 // Memory: O(n)
 
 #include "os/c.h"
-#include "os/mapped-file.h"
+#include "os/os.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
 #include "util/vector.h"
 
 int main() noexcept {
-    MappedFile file;
-    if (!makeMappedFile(file, "input")) {
-        printf("Could not open input\n");
+    String data;
+    if (!readFile("input", data)) {
+        printf("Could not read input\n");
         return 1;
     }
 
     Vector<StringView> tokens;
     int numValid = 0;
+    String buf;
 
-    Lines lines = readLines(file.data);
+    Lines lines = readLines(data);
 
     for (StringView line = lines++; line.size; line = lines++) {
         tokens.clear();
@@ -33,7 +34,7 @@ int main() noexcept {
         StringView haystackToken = tokens[2];
 
         int lo, hi;
-        if (!parseRange(lo, hi, rangeToken)) {
+        if (!parseRange(lo, hi, rangeToken, buf)) {
             printf("Invalid range: %s\n", String(rangeToken).null());
             return 1;
         }
