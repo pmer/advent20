@@ -69,8 +69,8 @@ main() noexcept {
         char needle = range.data[range.size + 1];  // 1 = space
 
         // Extract the haystack.
-        size_t begin = range.size + 4;  // 4 = space, needle, colon, space
-        StringView haystack = StringView(line.data + begin, line.size - begin);
+        size_t next = range.size + 4;  // 4 = space, needle, colon, space
+        StringView haystack = StringView(line.data + next, line.size - next);
 
         // Optimization.
         if (haystack.size < lo) {
