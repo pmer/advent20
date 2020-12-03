@@ -8,6 +8,29 @@
 #include "util/string2.h"
 #include "util/vector.h"
 
+void
+parseR(int& lo, int& hi, StringView s) noexcept {
+    const char* data = s.data;
+    size_t size = s.size;
+    size_t offset;
+
+    if (data[1] == '-') {
+        lo = data[0] - '0';
+        offset = 2;
+    }
+    else {
+        lo = (data[0] - '0') * 10 + data[1];
+        offset = 3;
+    }
+
+    if (size - offset == 1) {
+        hi = data[offset] - '0';
+    }
+    else {
+        hi = (data[offset] - '0') * 10 + data[offset + 1];
+    }
+}
+
 int main() noexcept {
     String data;
     if (!readFile("input", data)) {
@@ -17,7 +40,6 @@ int main() noexcept {
 
     Vector<StringView> tokens;
     int numValid = 0;
-    String buf;
 
     Lines lines = readLines(data);
 
@@ -34,10 +56,7 @@ int main() noexcept {
         StringView haystackToken = tokens[2];
 
         int lo, hi;
-        if (!parseRange(lo, hi, rangeToken, buf)) {
-            printf("Invalid range: %s\n", String(rangeToken).null());
-            return 1;
-        }
+        parseR(lo, hi, rangeToken);
 
         if (needleToken.size != 2 ||
             !('a' <= needleToken[0] && needleToken[0] <= 'z') ||
