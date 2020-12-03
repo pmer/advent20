@@ -19,7 +19,7 @@ parseR(int& lo, int& hi, StringView s) noexcept {
         offset = 2;
     }
     else {
-        lo = (data[0] - '0') * 10 + data[1];
+        lo = (data[0] - '0') * 10 + data[1] - '0';
         offset = 3;
     }
 
@@ -27,7 +27,7 @@ parseR(int& lo, int& hi, StringView s) noexcept {
         hi = data[offset] - '0';
     }
     else {
-        hi = (data[offset] - '0') * 10 + data[offset + 1];
+        hi = (data[offset] - '0') * 10 + data[offset + 1] - '0';
     }
 }
 
