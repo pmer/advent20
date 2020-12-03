@@ -19,6 +19,9 @@
 //   hi <- 12
 //
 // Only supports 1- and 2-digits numbers.
+//
+// Does 3 or 4 memory reads (depending on if the second number is 1 or 2
+// digits), two comparisons, and some arithmetic.
 static void
 parseRange(int& lo, int& hi, StringView s) noexcept {
     const char* data = s.data;
