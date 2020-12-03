@@ -70,10 +70,7 @@ main() noexcept {
 
         // Extract the haystack.
         size_t begin = range.size + 4;  // 4 = space, needle, colon, space
-        StringView haystack = StringView(
-            line.data + begin,
-            line.size - begin
-        );
+        StringView haystack = StringView(line.data + begin, line.size - begin);
 
         // Optimization.
         if (haystack.size < lo) {
