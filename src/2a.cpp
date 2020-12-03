@@ -69,10 +69,10 @@ main() noexcept {
         parseR(lo, hi, range);
 
         // Extract the needle.
-        char needle = range.data[range.size + 1];
+        char needle = range.data[range.size + 1];  // 1 = space
 
         // Extract the haystack.
-        size_t begin = range.size + 4;
+        size_t begin = range.size + 4;  // 4 = space, needle, colon, space
         StringView haystack = StringView(
             line.data + begin,
             line.size - begin
