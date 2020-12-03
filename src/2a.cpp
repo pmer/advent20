@@ -49,6 +49,8 @@ parseRange(int& lo, int& hi, StringView s) noexcept {
 int
 main() noexcept {
     String data;
+
+    // Only place in the program that allocates memory.
     if (!readFile("input", data)) {
         printf("Could not read input\n");
         return 1;
