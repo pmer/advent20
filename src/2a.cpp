@@ -8,6 +8,17 @@
 #include "util/string2.h"
 #include "util/vector.h"
 
+// parseR()
+//
+// When called:
+//   int lo, hi;
+//   parseR(lo, hi, "3-12");
+//
+// Effect:
+//   lo <- 3
+//   hi <- 12
+//
+// Only supports 1- and 2-digits numbers.
 static void
 parseR(int& lo, int& hi, StringView s) noexcept {
     const char* data = s.data;
@@ -15,18 +26,22 @@ parseR(int& lo, int& hi, StringView s) noexcept {
     size_t offset;
 
     if (data[1] == '-') {
+        // First number has 1 digit.
         lo = data[0] - '0';
         offset = 2;
     }
     else {
+        // First number has 2 digits.
         lo = (data[0] - '0') * 10 + data[1] - '0';
         offset = 3;
     }
 
     if (size - offset == 1) {
+        // Second number has 1 digit.
         hi = data[offset] - '0';
     }
     else {
+        // Second number has 2 digits.
         hi = (data[offset] - '0') * 10 + data[offset + 1] - '0';
     }
 }
@@ -39,37 +54,43 @@ main() noexcept {
         return 1;
     }
 
-    int numValid = 0;
-
     Lines lines = readLines(data);
 
+    int numValid = 0;
+
     for (StringView line = lines++; line.size; line = lines++) {
+        // Extract the range.
         StringView range = StringView(
             line.data,
             line.find(' ')
         );
 
+        int lo, hi;
+        parseR(lo, hi, range);
+
+        // Extract the needle.
         char needle = range.data[range.size + 1];
 
+        // Extract the haystack.
         size_t begin = range.size + 4;
         StringView haystack = StringView(
             line.data + begin,
             line.size - begin
         );
 
-        int lo, hi;
-        parseR(lo, hi, range);
-
+        // Optimization.
         if (haystack.size < lo) {
             continue;
         }
 
-        int found = 0;
+        // Count the occurences.
+        int occurences = 0;
         for (char letter : haystack) {
-            found += needle == letter;
+            occurences += needle == letter;
         }
 
-        bool valid = lo <= found && found <= hi;
+        // If occurences are in the right range, increment numValid.
+        bool valid = lo <= occurences && occurences <= hi;
         if (valid) {
             numValid += 1;
         }
