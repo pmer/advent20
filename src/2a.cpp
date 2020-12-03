@@ -82,8 +82,9 @@ main() noexcept {
         size_t next = range.size + 4;  // 4 = space, needle, colon, space
         StringView haystack = StringView(line.data + next, line.size - next);
 
-        // Optimization.
         if (haystack.size < lo) {
+            // Optimization: The haystack is not large enough for this line to
+            //               be valid. Skip.
             continue;
         }
 
