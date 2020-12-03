@@ -8,11 +8,11 @@
 #include "util/string2.h"
 #include "util/vector.h"
 
-// parseR()
+// parseRange()
 //
 // When called:
 //   int lo, hi;
-//   parseR(lo, hi, "3-12");
+//   parseRange(lo, hi, "3-12");
 //
 // Effect:
 //   lo <- 3
@@ -20,7 +20,7 @@
 //
 // Only supports 1- and 2-digits numbers.
 static void
-parseR(int& lo, int& hi, StringView s) noexcept {
+parseRange(int& lo, int& hi, StringView s) noexcept {
     const char* data = s.data;
     size_t size = s.size;
     size_t offset;
@@ -66,7 +66,7 @@ main() noexcept {
         );
 
         int lo, hi;
-        parseR(lo, hi, range);
+        parseRange(lo, hi, range);
 
         // Extract the needle.
         char needle = range.data[range.size + 1];  // 1 = space
