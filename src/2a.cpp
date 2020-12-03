@@ -58,6 +58,7 @@ main() noexcept {
         return 1;
     }
 
+    // Lazy iterator that yields one line of the file at a time.
     Lines lines = readLines(data);
 
     int numValid = 0;
