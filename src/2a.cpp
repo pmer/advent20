@@ -88,7 +88,8 @@ main() noexcept {
             continue;
         }
 
-        // Count the occurences of the needle in the haystack.
+        // Count the occurences of the needle in the haystack. Most of the
+        // program's execution time is running this loop.
         int occurences = 0;
         for (char letter : haystack) {
             occurences += needle == letter;
