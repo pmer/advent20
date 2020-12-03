@@ -21,7 +21,9 @@
 // Only supports 1- and 2-digits numbers.
 //
 // Does 3 or 4 memory reads (depending on if the second number is 1 or 2
-// digits), two comparisons, and some arithmetic.
+// digits), two comparisons, and some arithmetic. The lo and hi parameters will
+// be stored in registers, so assigning a value to them will not involve a
+// write to memory.
 static void
 parseRange(int& lo, int& hi, StringView s) noexcept {
     const char* data = s.data;
