@@ -172,6 +172,11 @@ target_link_libraries(2a tsunagari)
 add_executable(2b ${ADVENT}/src/2b.cpp)
 target_link_libraries(2b tsunagari)
 
+add_executable(3a ${ADVENT}/src/3a.cpp)
+target_link_libraries(3a tsunagari)
+add_executable(3b ${ADVENT}/src/3b.cpp)
+target_link_libraries(3b tsunagari)
+
 include_directories(${HERE}/src)
 
 

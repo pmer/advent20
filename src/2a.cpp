@@ -1,5 +1,5 @@
 // Time: O(n)
-// Memory: O(n)
+// Memory: O(1)
 
 #include "os/c.h"
 #include "os/os.h"

@@ -1,17 +1,17 @@
 // Time: O(n)
-// Memory: O(n)
+// Memory: O(1)
 
 #include "os/c.h"
-#include "os/mapped-file.h"
+#include "os/os.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
 #include "util/vector.h"
 
 int main() noexcept {
-    MappedFile file;
-    if (!makeMappedFile(file, "input")) {
-        printf("Could not open input\n");
+    String data;
+    if (!readFile("input", data)) {
+        printf("Could not read input\n");
         return 1;
     }
 
@@ -19,7 +19,7 @@ int main() noexcept {
     int numValid = 0;
     String buf;
 
-    Lines lines = readLines(file.data);
+    Lines lines = readLines(data);
 
     for (StringView line = lines++; line.size; line = lines++) {
         tokens.clear();
