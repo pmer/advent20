@@ -38,33 +38,26 @@ int main() noexcept {
         return 1;
     }
 
-    Vector<StringView> tokens;
     int numValid = 0;
 
     Lines lines = readLines(data);
 
     for (StringView line = lines++; line.size; line = lines++) {
-        tokens.clear();
-        splitStr(tokens, line, " ");
-        if (tokens.size != 3) {
-            printf("Invalid line: %s\n", String(line).null());
-            return 1;
-        }
+        StringView rangeToken = StringView(
+            line.data,
+            line.find(' ')
+        );
 
-        StringView rangeToken = tokens[0];
-        StringView needleToken = tokens[1];
-        StringView haystackToken = tokens[2];
+        char needle = rangeToken.data[rangeToken.size + 1];
+
+        size_t begin = rangeToken.size + 4;
+        StringView haystackToken = StringView(
+            line.data + begin,
+            line.size - begin
+        );
 
         int lo, hi;
         parseR(lo, hi, rangeToken);
-
-        if (needleToken.size != 2 ||
-            !('a' <= needleToken[0] && needleToken[0] <= 'z') ||
-            needleToken[1] != ':') {
-            printf("Invalid needle: %s\n", String(needleToken).null());
-            return 1;
-        }
-        char needle = needleToken[0];
 
         if (haystackToken.size < lo) {
             continue;
