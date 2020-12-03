@@ -115,6 +115,7 @@ main() noexcept {
     int numValid = 0;
 
     splitStr(lines, data, "\n");
+
     for (StringView line : lines) {
         // Split the line into three tokens.
         tokens.clear();
