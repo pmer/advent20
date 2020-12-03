@@ -8,7 +8,8 @@
 #include "util/string2.h"
 #include "util/vector.h"
 
-int main() noexcept {
+int
+main() noexcept {
     String data;
     if (!readFile("input", data)) {
         printf("Could not read input\n");

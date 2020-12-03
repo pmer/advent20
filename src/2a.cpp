@@ -8,7 +8,7 @@
 #include "util/string2.h"
 #include "util/vector.h"
 
-void
+static void
 parseR(int& lo, int& hi, StringView s) noexcept {
     const char* data = s.data;
     size_t size = s.size;
@@ -31,7 +31,8 @@ parseR(int& lo, int& hi, StringView s) noexcept {
     }
 }
 
-int main() noexcept {
+int
+main() noexcept {
     String data;
     if (!readFile("input", data)) {
         printf("Could not read input\n");
@@ -43,28 +44,28 @@ int main() noexcept {
     Lines lines = readLines(data);
 
     for (StringView line = lines++; line.size; line = lines++) {
-        StringView rangeToken = StringView(
+        StringView range = StringView(
             line.data,
             line.find(' ')
         );
 
-        char needle = rangeToken.data[rangeToken.size + 1];
+        char needle = range.data[range.size + 1];
 
-        size_t begin = rangeToken.size + 4;
-        StringView haystackToken = StringView(
+        size_t begin = range.size + 4;
+        StringView haystack = StringView(
             line.data + begin,
             line.size - begin
         );
 
         int lo, hi;
-        parseR(lo, hi, rangeToken);
+        parseR(lo, hi, range);
 
-        if (haystackToken.size < lo) {
+        if (haystack.size < lo) {
             continue;
         }
 
         int found = 0;
-        for (char letter : haystackToken) {
+        for (char letter : haystack) {
             found += needle == letter;
         }
 
@@ -78,3 +79,66 @@ int main() noexcept {
 
     return 0;
 }
+
+
+
+/*
+int
+main() noexcept {
+    String data;
+    readFile("input", data);
+
+    Vector<StringView> lines;
+    Vector<StringView> tokens;
+    Vector<int> range;
+    int numValid = 0;
+
+    splitStr(lines, data, "\n");
+    for (StringView line : lines) {
+        tokens.clear();
+        splitStr(tokens, line, " ");
+        if (tokens.size != 3) {
+            printf("Invalid line: %s\n", String(line).null());
+            return 1;
+        }
+
+        StringView rangeToken = tokens[0];
+        StringView needleToken = tokens[1];
+        StringView haystackToken = tokens[2];
+
+        range.clear();
+        if (!parseRanges(range, rangeToken)) {
+            printf("Invalid range: %s\n", String(rangeToken).null());
+            return 1;
+        }
+        int lower = range[0];
+        int higher = range[range.size - 1];
+
+        if (needleToken.size != 2 ||
+            !('a' <= needleToken[0] && needleToken[0] <= 'z') ||
+            needleToken[1] != ':') {
+            printf("Invalid needle: %s\n", String(needleToken).null());
+            return 1;
+        }
+        char needle = needleToken[0];
+
+        if (haystackToken.size < lower) {
+            continue;
+        }
+
+        int found = 0;
+        for (char letter : haystackToken) {
+            found += needle == letter;
+        }
+
+        bool valid = lower <= found && found <= higher;
+        if (valid) {
+            numValid += 1;
+        }
+    }
+
+    printf("%d\n", numValid);
+
+    return 0;
+}
+*/

@@ -11,7 +11,8 @@
 
 #define TARGET 2020
 
-int main() noexcept {
+int
+main() noexcept {
     // Read the input data.
     String data;
     readFile("input", data);
