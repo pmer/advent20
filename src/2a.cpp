@@ -50,7 +50,9 @@ int
 main() noexcept {
     String data;
 
-    // Only place in the program that allocates memory.
+    // Only place in the program that allocates memory. Everything else is just
+    // read-only pointers into this character array and no copies of any part
+    // are ever made.
     if (!readFile("input", data)) {
         printf("Could not read input\n");
         return 1;
