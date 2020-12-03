@@ -69,6 +69,18 @@ main() noexcept {
     int numValid = 0;
 
     for (StringView line = lines++; line.size; line = lines++) {
+        // Example line:
+        //
+        // 3-4 j: tjjj
+        //
+        // ^   ^  ^
+        // |   |  |
+        // range  |
+        //     |  |
+        //     needle
+        //        |
+        //        haystack
+
         // Extract the range.
         StringView range = StringView(line.data, line.find(' '));
 
