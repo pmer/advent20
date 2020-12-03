@@ -10,11 +10,11 @@
 
 // parseRange()
 //
-// When called:
+// When called like this:
 //   int lo, hi;
 //   parseRange(lo, hi, "3-12");
 //
-// Effect:
+// Then this will happen:
 //   lo <- 3
 //   hi <- 12
 //
