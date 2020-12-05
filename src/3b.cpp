@@ -35,6 +35,7 @@ path(StringView data, size_t r, size_t d) noexcept {
 
 int
 main() noexcept {
+    // Read whole file into memory at once.
     String data;
     if (!readFile("input", data)) {
         printf("Could not read input\n");

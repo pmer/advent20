@@ -23,6 +23,7 @@ tag(StringView s) noexcept {
 
 int
 main() noexcept {
+    // Lazy iterator that yields one line of the file at a time.
     ReadLines lines;
     if (!lines.start("input")) {
         printf("Could not read input\n");
