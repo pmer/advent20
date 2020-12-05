@@ -1,5 +1,7 @@
 // Time: O(n)
 // Memory: O(1)
+//
+// Processes 1.9 GB/sec on an Intel Core i5-1030NG7.
 
 #include "os/c.h"
 #include "util/int.h"
