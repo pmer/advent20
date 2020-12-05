@@ -55,6 +55,8 @@ main() noexcept {
         }
     }
 
+    numValid += id == 127;  // lowest 7 bits set
+
     printf("%zu\n", numValid);
 
     return 0;
