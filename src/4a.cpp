@@ -23,7 +23,7 @@ tag(StringView s) noexcept {
 
 int
 main() noexcept {
-    FileTokenStream<'\n'> lines;
+    ReadLines lines;
     if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;

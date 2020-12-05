@@ -2,14 +2,13 @@
 // Memory: O(1)
 
 #include "os/c.h"
-#include "os/os.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
 
 int
 main() noexcept {
-    FileTokenStream<'\n'> lines;
+    ReadLines lines;
     if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;
