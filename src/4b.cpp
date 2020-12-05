@@ -115,8 +115,8 @@ isPid(StringView value) noexcept {
 
 int
 main() noexcept {
-    String data;
-    if (!readFile("input", data)) {
+    FileTokenStream<'\n'> lines;
+    if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;
     }
@@ -124,7 +124,6 @@ main() noexcept {
     size_t id = 0;
     size_t numValid = 0;
 
-    Tokens<'\n'> lines = split<'\n'>(data);
     bool valid = true;
 
     for (StringView line = lines++; line.data; line = lines++) {
