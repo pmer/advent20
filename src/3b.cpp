@@ -22,7 +22,10 @@ main() noexcept {
 
     size_t y = 0;
 
+    // We start on the first line, so we skip it.
     StringView first = lines.next();
+
+    // Grab the width of each line. It is always 31.
     size_t width = first.size;
 
     for (StringView line = lines.next(); line.data; line = lines.next()) {
