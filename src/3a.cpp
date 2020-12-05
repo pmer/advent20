@@ -20,10 +20,10 @@ main() noexcept {
     size_t hits = 0;
     size_t x = 0;
 
-    StringView first = lines++;
+    StringView first = lines.next();
     size_t width = first.size;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         x = (x + 3) % width;
         hits += line[x] == '#';
     }

@@ -19,7 +19,7 @@ main() noexcept {
 
     uint32_t max = 0;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         uint32_t seat = ((line[0] == 'B') << 9) +
                         ((line[1] == 'B') << 8) +
                         ((line[2] == 'B') << 7) +

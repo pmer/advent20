@@ -128,7 +128,7 @@ main() noexcept {
 
     bool valid = true;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         if (line.size == 0) {
             if (valid) {
                 numValid += id == 127;  // lowest 7 bits set

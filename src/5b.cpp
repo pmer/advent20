@@ -19,7 +19,7 @@ main() noexcept {
 
     bool taken[1024] = {};
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         uint32_t seat = ((line[0] == 'B') << 9) +
                         ((line[1] == 'B') << 8) +
                         ((line[2] == 'B') << 7) +
@@ -35,10 +35,10 @@ main() noexcept {
 
     uint32_t i = 0;
     while (taken[i] == false) {
-        i++;
+        i += 1;
     }
     while (taken[i] == true) {
-        i++;
+        i += 1;
     }
 
     sout << i << '\n';

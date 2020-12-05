@@ -34,7 +34,7 @@ main() noexcept {
     size_t id = 0;
     size_t numValid = 0;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         if (line.size == 0) {
             numValid += id == 127;  // lowest 7 bits set
             id = 0;

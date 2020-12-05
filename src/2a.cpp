@@ -63,7 +63,7 @@ main() noexcept {
 
     int numValid = 0;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         // Example line:
         //
         // 3-4 j: tjjj

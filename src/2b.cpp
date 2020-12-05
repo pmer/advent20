@@ -22,7 +22,7 @@ main() noexcept {
     int numValid = 0;
     String buf;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         tokens.clear();
         splitStr(tokens, line, " ");
         if (tokens.size != 3) {

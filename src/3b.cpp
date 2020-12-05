@@ -22,10 +22,10 @@ main() noexcept {
 
     size_t y = 0;
 
-    StringView first = lines++;
+    StringView first = lines.next();
     size_t width = first.size;
 
-    for (StringView line = lines++; line.data; line = lines++) {
+    for (StringView line = lines.next(); line.data; line = lines.next()) {
         y += 1;
 
         x[0] = (x[0] + 1) % width;
