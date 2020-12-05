@@ -138,9 +138,11 @@ main() noexcept {
             continue;
         }
 
-        Tokens<' '> words = split<' '>(line);
+        Splits<' '> words(line);
 
-        for (StringView word = words++; word.data && valid; word = words++) {
+        for (StringView word = words.next();
+             word.data && valid;
+             word = words.next()) {
             StringView data = word.substr(4);
             switch (TAG(word.data)) {
                 case byr:

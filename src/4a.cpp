@@ -41,9 +41,9 @@ main() noexcept {
             continue;
         }
 
-        Tokens<' '> words = split<' '>(line);
+        Splits<' '> words(line);
 
-        for (StringView word = words++; word.data; word = words++) {
+        for (StringView word = words.next(); word.data; word = words.next()) {
             switch (tag(word)) {
                 case byr: id |=  1; break;
                 case iyr: id |=  2; break;
