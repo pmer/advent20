@@ -16,6 +16,6 @@ jobs:
           curl -LOsS https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
           unzip ninja-linux.zip >/dev/null && rm ninja-linux.zip
           PATH=$PATH:$PWD
-          ./build.sh
+          bin/build.sh
       - name: Test
-        run: ./test.sh
+        run: bin/test.sh
