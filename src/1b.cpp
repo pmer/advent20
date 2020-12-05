@@ -1,9 +1,9 @@
 // Time: O(n^2)
 // Memory: O(n)
 
-#include "os/c.h"
 #include "os/os.h"
 #include "util/int.h"
+#include "util/io.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
@@ -28,7 +28,7 @@ main() noexcept {
         line_ << line;
         int i;
         if (!parseInt(i, line_)) {
-            printf("Invalid int: %s\n", line_.null());
+            serr << "Invalid int: " << line_ << '\n';
             return 1;
         }
 
@@ -47,13 +47,13 @@ main() noexcept {
             if (k >= 0 && k < TARGET && found[k]) {
                 // No duplicates in the input, so no need to check if we have
                 // seen two of the same value when j = k.
-                printf("%d\n", i * j * k);
+                sout << i * j * k << '\n';
                 return 0;
             }
         }
         found[i] = true;
     }
 
-    printf("Not found\n");
-    return 0;
+    serr << "Not found\n";
+    return 1;
 }

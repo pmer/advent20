@@ -110,6 +110,8 @@ set(TSUNAGARI_SOURCES ${TSUNAGARI_SOURCES}
     ${HERE}/src/util/hash.h
     ${HERE}/src/util/hashtable.h
     ${HERE}/src/util/int.h
+    ${HERE}/src/util/io.cpp
+    ${HERE}/src/util/io.h
     ${HERE}/src/util/jobs.cpp
     ${HERE}/src/util/jobs.h
     ${HERE}/src/util/json.cpp

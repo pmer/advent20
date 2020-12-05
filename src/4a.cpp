@@ -3,8 +3,8 @@
 //
 // Processes 250 MB/sec on an Intel Core i5-1030NG7.
 
-#include "os/c.h"
 #include "util/int.h"
+#include "util/io.h"
 #include "util/string-view.h"
 #include "util/string2.h"
 
@@ -27,7 +27,7 @@ main() noexcept {
     // Lazy iterator that yields one line of the file at a time.
     ReadLines lines;
     if (!lines.start("input")) {
-        printf("Could not read input\n");
+        serr << "Could not read input\n";
         return 1;
     }
 
@@ -58,7 +58,7 @@ main() noexcept {
 
     numValid += id == 127;  // lowest 7 bits set
 
-    printf("%zu\n", numValid);
+    sout << numValid << '\n';
 
     return 0;
 }

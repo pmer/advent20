@@ -3,8 +3,8 @@
 //
 // Processes 1.9 GB/sec on an Intel Core i5-1030NG7.
 
-#include "os/c.h"
 #include "util/int.h"
+#include "util/io.h"
 #include "util/string-view.h"
 #include "util/string2.h"
 
@@ -28,7 +28,7 @@ main() noexcept {
         hits += line[x] == '#';
     }
 
-    printf("%zu\n", hits);
+    sout << hits << '\n';
 
     return 0;
 }

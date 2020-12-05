@@ -3,8 +3,8 @@
 //
 // Processes 200 MB/sec on an Intel Core i5-1030NG7.
 
-#include "os/c.h"
 #include "os/os.h"
+#include "util/io.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
@@ -14,7 +14,7 @@ int
 main() noexcept {
     ReadLines lines;
     if (!lines.start("input")) {
-        printf("Could not read input\n");
+        serr << "Could not read input\n";
         return 1;
     }
 
@@ -26,7 +26,7 @@ main() noexcept {
         tokens.clear();
         splitStr(tokens, line, " ");
         if (tokens.size != 3) {
-            printf("Invalid line: %s\n", String(line).null());
+            serr << "Invalid line: " << line << '\n';
             return 1;
         }
 
@@ -36,14 +36,14 @@ main() noexcept {
 
         int lo, hi;
         if (!parseRange(lo, hi, rangeToken, buf)) {
-            printf("Invalid range: %s\n", String(rangeToken).null());
+            serr << "Invalid range: " << rangeToken << '\n';
             return 1;
         }
 
         if (needleToken.size != 2 ||
             !('a' <= needleToken[0] && needleToken[0] <= 'z') ||
             needleToken[1] != ':') {
-            printf("Invalid needle: %s\n", String(needleToken).null());
+            serr << "Invalid needle: " << needleToken << '\n';
             return 1;
         }
         char needle = needleToken[0];
@@ -61,7 +61,7 @@ main() noexcept {
         }
     }
 
-    printf("%d\n", numValid);
+    sout << numValid << '\n';
 
     return 0;
 }

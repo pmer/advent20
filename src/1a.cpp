@@ -1,9 +1,9 @@
 // Time: O(n)
 // Memory: O(n)
 
-#include "os/c.h"
 #include "os/os.h"
 #include "util/int.h"
+#include "util/io.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
@@ -30,7 +30,7 @@ main() noexcept {
         line_ << line;
         int i;
         if (!parseInt(i, line_)) {
-            printf("Invalid int: %s\n", line_.null());
+            serr << "Invalid int: " << line_ << '\n';
             return 1;
         }
 
@@ -51,7 +51,7 @@ main() noexcept {
 
         // If we've seen the necessary compliment for TARGET, we are done.
         if (seen[j]) {
-            printf("%d\n", i * j);
+            sout << i * j << '\n';
             return 0;
         }
         // Otherwise, if we ever counter j later on, we'll know we've already
@@ -61,6 +61,6 @@ main() noexcept {
         }
     }
 
-    printf("Not found\n");
-    return 0;
+    serr << "Not found\n";
+    return 1;
 }
