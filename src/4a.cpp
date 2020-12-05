@@ -23,16 +23,14 @@ tag(StringView s) noexcept {
 
 int
 main() noexcept {
-    String data;
-    if (!readFile("input", data)) {
+    FileTokenStream<'\n'> lines;
+    if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;
     }
 
     size_t id = 0;
     size_t numValid = 0;
-
-    Tokens<'\n'> lines = split<'\n'>(data);
 
     for (StringView line = lines++; line.data; line = lines++) {
         if (line.size == 0) {

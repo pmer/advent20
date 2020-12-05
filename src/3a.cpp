@@ -9,15 +9,13 @@
 
 int
 main() noexcept {
-    String data;
-    if (!readFile("input", data)) {
+    FileTokenStream<'\n'> lines;
+    if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;
     }
 
     size_t hits = 0;
-
-    Lines lines = readLines(data);
 
     size_t x = 0;
 
