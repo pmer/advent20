@@ -8,8 +8,8 @@
 ```bash
 git clone --recursive https://github.com/pmer/advent20
 cd advent20
-./build.sh
-./test.sh
+bin/build.sh
+bin/test.sh
 ```
 
 
@@ -43,8 +43,7 @@ cd ..
 | -------------- | ---------------------------------- |
 | Tsunagari/     | C++ standard library               |
 | answers/       | Answers to Advent of Code          |
+| bin/           | Instructions for CI on how to test |
 | data/          | Input files for Advent of Code     |
 | src/           | Source code for Advent of Code     |
 | CMakeLists.txt | List of files to compile           |
-| build.sh       | Instructions for the CI to compile |
-| test.sh        | Instructions for the CI to test    |
