@@ -2,7 +2,6 @@
 // Memory: O(1)
 
 #include "os/c.h"
-#include "os/os.h"
 #include "util/int.h"
 #include "util/string-view.h"
 #include "util/string2.h"
