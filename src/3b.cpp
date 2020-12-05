@@ -1,7 +1,7 @@
 // Time: O(n * m)
-// Memory: O(n)
+// Memory: O(1)
 //
-// Processes 475 MB/sec on an Intel Core i5-1030NG7.
+// Processes 1.6 GB/sec on an Intel Core i5-1030NG7.
 
 #include "os/c.h"
 #include "os/os.h"
@@ -10,13 +10,18 @@
 #include "util/string.h"
 #include "util/string2.h"
 
-static size_t
-path(StringView data, size_t r, size_t d) noexcept {
-    size_t hits = 0;
+int
+main() noexcept {
+    // Lazy iterator that yields one line of the file at a time.
+    ReadLines lines;
+    if (!lines.start("input")) {
+        printf("Could not read input\n");
+        return 1;
+    }
 
-    Tokens<'\n'> lines = split<'\n'>(data);
+    size_t hits[5] = {};
+    size_t x[5] = {};
 
-    size_t x = 0;
     size_t y = 0;
 
     StringView first = lines++;
@@ -24,29 +29,23 @@ path(StringView data, size_t r, size_t d) noexcept {
 
     for (StringView line = lines++; line.data; line = lines++) {
         y += 1;
-        if (y % d != 0) {
-            continue;
+
+        x[0] = (x[0] + 1) % width;
+        x[1] = (x[1] + 3) % width;
+        x[2] = (x[2] + 5) % width;
+        x[3] = (x[3] + 7) % width;
+
+        hits[0] += line[x[0]] == '#';
+        hits[1] += line[x[1]] == '#';
+        hits[2] += line[x[2]] == '#';
+        hits[3] += line[x[3]] == '#';
+        if (y % 2 == 0) {
+            x[4] = (x[4] + 1) % width;
+            hits[4] += line[x[4]] == '#';
         }
-
-        x = (x + r) % width;
-        hits += line[x] == '#';
     }
 
-    return hits;
-}
-
-int
-main() noexcept {
-    // Read whole file into memory at once.
-    String data;
-    if (!readFile("input", data)) {
-        printf("Could not read input\n");
-        return 1;
-    }
-
-    printf("%zu\n",
-           path(data, 1, 1) * path(data, 3, 1) * path(data, 5, 1) *
-               path(data, 7, 1) * path(data, 1, 2));
+    printf("%zu\n", hits[0] * hits[1] * hits[2] * hits[3] * hits[4]);
 
     return 0;
 }
