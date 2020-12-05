@@ -11,8 +11,8 @@
 int
 main() noexcept {
     // Lazy iterator that yields one line of the file at a time.
-    ReadLines lines;
-    if (!lines.start("input")) {
+    ReadLines lines("input");
+    if (!lines) {
         printf("Could not read input\n");
         return 1;
     }

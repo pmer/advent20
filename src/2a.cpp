@@ -55,8 +55,8 @@ parseRange(int& lo, int& hi, StringView s) noexcept {
 int
 main() noexcept {
     // Lazy iterator that yields one line of the file at a time.
-    ReadLines lines;
-    if (!lines.start("input")) {
+    ReadLines lines("input");
+    if (!lines) {
         serr << "Could not read input\n";
         return 1;
     }
