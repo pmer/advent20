@@ -12,7 +12,10 @@ jobs:
         with:
           submodules: true
       - name: Install Ninja
-        uses: seanmiddleditch/gha-setup-ninja@16b9408
+        run: |
+          curl -LOsS https://github.com/ninja-build/ninja/releases/download/v1.10.2/ninja-linux.zip
+          unzip ninja-linux.zip >/dev/null && rm ninja-linux.zip
+          PATH=$PATH:$PWD
       - name: Build
         run: ./build.sh
       - name: Test
