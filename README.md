@@ -1,5 +1,7 @@
 # Advent of Code 2020
 
+![CI](https://github.com/pmer/advent20/workflows/CI/badge.svg)
+
 
 ## Jump start
 
