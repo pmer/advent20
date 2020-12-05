@@ -18,7 +18,7 @@ static constexpr const uint32_t cid = ('c' << 0) + ('i' << 8) + ('d' << 16);
 
 static uint32_t
 tag(StringView s) noexcept {
-    return *reinterpret_cast<const uint32_t*>(s.data);
+    return *reinterpret_cast<const uint32_t*>(s.data) & 0x00FFFFFF;
 }
 
 int
@@ -43,7 +43,7 @@ main() noexcept {
         Tokens<' '> words = split<' '>(line);
 
         for (StringView word = words++; word.data; word = words++) {
-            switch (tag(word) & 0x00FFFFFF) {
+            switch (tag(word)) {
                 case byr: id |=  1; break;
                 case iyr: id |=  2; break;
                 case eyr: id |=  4; break;
