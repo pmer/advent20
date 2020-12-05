@@ -10,8 +10,8 @@
 
 int
 main() noexcept {
-    String data;
-    if (!readFile("input", data)) {
+    ReadLines lines;
+    if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;
     }
@@ -20,9 +20,7 @@ main() noexcept {
     int numValid = 0;
     String buf;
 
-    Lines lines = readLines(data);
-
-    for (StringView line = lines++; line.size; line = lines++) {
+    for (StringView line = lines++; line.data; line = lines++) {
         tokens.clear();
         splitStr(tokens, line, " ");
         if (tokens.size != 3) {

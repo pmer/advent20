@@ -1,7 +1,7 @@
 // Time: O(n)
 // Memory: O(1)
 //
-// Processes 360 MB/sec on an Intel Core i5-1030NG7.
+// Processes 425 MB/sec on an Intel Core i5-1030NG7.
 
 #include "os/c.h"
 #include "os/os.h"
@@ -55,22 +55,16 @@ parseRange(int& lo, int& hi, StringView s) noexcept {
 
 int
 main() noexcept {
-    String data;
-
-    // Only place in the program that allocates memory. Everything else is just
-    // read-only pointers into this character array and no copies of any part
-    // are ever made.
-    if (!readFile("input", data)) {
+    // Lazy iterator that yields one line of the file at a time.
+    ReadLines lines;
+    if (!lines.start("input")) {
         printf("Could not read input\n");
         return 1;
     }
 
-    // Lazy iterator that yields one line of the file at a time.
-    Lines lines = readLines(data);
-
     int numValid = 0;
 
-    for (StringView line = lines++; line.size; line = lines++) {
+    for (StringView line = lines++; line.data; line = lines++) {
         // Example line:
         //
         // 3-4 j: tjjj

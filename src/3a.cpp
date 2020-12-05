@@ -2,8 +2,8 @@
 // Memory: O(1)
 
 #include "os/c.h"
+#include "util/int.h"
 #include "util/string-view.h"
-#include "util/string.h"
 #include "util/string2.h"
 
 int
@@ -21,7 +21,7 @@ main() noexcept {
     StringView first = lines++;
     size_t width = first.size;
 
-    for (StringView line = lines++; line.size; line = lines++) {
+    for (StringView line = lines++; line.data; line = lines++) {
         x = (x + 3) % width;
         hits += line[x] == '#';
     }

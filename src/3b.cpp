@@ -3,6 +3,7 @@
 
 #include "os/c.h"
 #include "os/os.h"
+#include "util/int.h"
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
@@ -11,7 +12,7 @@ static size_t
 path(StringView data, size_t r, size_t d) noexcept {
     size_t hits = 0;
 
-    Lines lines = readLines(data);
+    Tokens<'\n'> lines = split<'\n'>(data);
 
     size_t x = 0;
     size_t y = 0;
@@ -19,7 +20,7 @@ path(StringView data, size_t r, size_t d) noexcept {
     StringView first = lines++;
     size_t width = first.size;
 
-    for (StringView line = lines++; line.size; line = lines++) {
+    for (StringView line = lines++; line.data; line = lines++) {
         y += 1;
         if (y % d != 0) {
             continue;

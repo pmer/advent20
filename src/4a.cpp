@@ -3,8 +3,8 @@
 
 #include "os/c.h"
 #include "os/os.h"
+#include "util/int.h"
 #include "util/string-view.h"
-#include "util/string.h"
 #include "util/string2.h"
 
 static constexpr const uint32_t byr = ('b' << 0) + ('y' << 8) + ('r' << 16);
