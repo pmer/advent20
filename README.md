@@ -5,6 +5,7 @@
 
 ```bash
 git clone --recursive https://github.com/pmer/advent20
+cd advent20
 ./build.sh
 ./test.sh
 ```
@@ -14,6 +15,7 @@ git clone --recursive https://github.com/pmer/advent20
 
 ```bash
 git clone --recursive https://github.com/pmer/advent20
+cd advent20
 
 mkdir build
 cd build
