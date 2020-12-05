@@ -8,7 +8,6 @@
 #include "util/string-view.h"
 #include "util/string.h"
 #include "util/string2.h"
-#include "util/vector.h"
 
 // parseRange()
 //
