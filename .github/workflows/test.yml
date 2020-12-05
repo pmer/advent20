@@ -4,17 +4,16 @@ on: [push]
 
 jobs:
   build:
-    name: Build
+    name: Build & test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           submodules: true
-      - uses: seanmiddleditch/gha-setup-ninja@16b9408
-      - run: ./build.sh
-
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - run: ./test.sh
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@16b9408
+      - name: Build
+        run: ./build.sh
+      - name: Test
+        run: ./test.sh
