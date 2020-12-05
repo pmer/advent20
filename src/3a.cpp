@@ -18,7 +18,6 @@ main() noexcept {
     }
 
     size_t hits = 0;
-
     size_t x = 0;
 
     StringView first = lines++;
