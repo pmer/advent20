@@ -1,7 +1,7 @@
 // Time: O(n)
 // Memory: O(1)
 //
-// Processes 150 MB/sec on an Intel Core i5-7600K.
+// Processes 225 MB/sec on an Intel Xeon E5-2650
 
 #include "os/c.h"
 #include "util/int.h"
@@ -23,11 +23,13 @@ main() noexcept {
 
     for (StringView line = lines.next(); line.data; line = lines.next()) {
         if (line.size) {
+#pragma GCC unroll 26
             for (size_t i = 0; i < line.size; i++) {
                 as[line[i] - 'a'] = true;
             }
         }
         else {
+#pragma GCC unroll 26
             for (size_t i = 0; i < 26; i++) {
                 sum += as[i];
             }
