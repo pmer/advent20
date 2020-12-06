@@ -18,26 +18,29 @@ main() noexcept {
         return 1;
     }
 
-    bool as[26] = {};
+    size_t as[26] = {};
+    size_t family = 0;
     size_t sum = 0;
 
     for (StringView line = lines.next(); line.data; line = lines.next()) {
         if (line.size) {
+            family += 1;
             for (size_t i = 0; i < line.size; i++) {
-                as[line[i] - 'a'] = true;
+                as[line[i] - 'a'] += 1;
             }
         }
         else {
             for (size_t i = 0; i < 26; i++) {
-                sum += as[i];
+                sum += as[i] == family;
             }
 
             memset(as, 0, sizeof(as));
+            family = 0;
         }
     }
 
     for (size_t i = 0; i < 26; i++) {
-        sum += as[i];
+        sum += as[i] == family;
     }
 
     sout << sum << '\n';
