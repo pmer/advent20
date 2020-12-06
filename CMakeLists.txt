@@ -50,6 +50,7 @@ set(ADVENT ${CMAKE_CURRENT_LIST_DIR})
 set(TSUNAGARI_SOURCES ${TSUNAGARI_SOURCES}
     ${HERE}/src/os/c.h
     ${HERE}/src/os/chrono.h
+    ${HERE}/src/os/io.h
     ${HERE}/src/os/mapped-file.h
     ${HERE}/src/os/mutex.h
     ${HERE}/src/os/thread.h
@@ -74,6 +75,8 @@ if (WIN32)
         ${HERE}/src/os/windows-mapped-file.h
         ${HERE}/src/os/windows.cpp
         ${HERE}/src/os/windows.h
+        ${HERE}/src/os/windows/io.cpp
+        ${HERE}/src/os/windows/io.h
     )
 elseif(APPLE)
     set(TSUNAGARI_SOURCES ${TSUNAGARI_SOURCES}
@@ -87,6 +90,8 @@ elseif(APPLE)
         ${HERE}/src/os/unix-mapped-file.h
         ${HERE}/src/os/unix-mutex.h
         ${HERE}/src/os/unix.cpp
+        ${HERE}/src/os/unix/io.cpp
+        ${HERE}/src/os/unix/io.h
     )
 else()
     set(TSUNAGARI_SOURCES ${TSUNAGARI_SOURCES}
@@ -96,6 +101,8 @@ else()
         ${HERE}/src/os/unix-mutex.h
         ${HERE}/src/os/unix-thread.h
         ${HERE}/src/os/unix.cpp
+        ${HERE}/src/os/unix/io.cpp
+        ${HERE}/src/os/unix/io.h
     )
 endif()
 
@@ -188,6 +195,9 @@ add_executable(5a ${ADVENT}/src/5a.cpp)
 target_link_libraries(5a tsunagari)
 add_executable(5b ${ADVENT}/src/5b.cpp)
 target_link_libraries(5b tsunagari)
+
+add_executable(6a ${ADVENT}/src/6a.cpp)
+target_link_libraries(6a tsunagari)
 
 include_directories(${HERE}/src)
 
