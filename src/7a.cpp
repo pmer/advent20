@@ -126,8 +126,9 @@ main() noexcept {
 
     Bag* goldBag = names[goldName];
 
-    Hashmap<Bag*, bool> seen;
+    Hashmap<Bag*, bool> seen(2 * 1024);
     Vector<Bag*> queue;
+    queue.reserve(bags.size);
 
     seen[goldBag] = true;
     queue.push_back(goldBag);
