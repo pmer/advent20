@@ -94,9 +94,7 @@ main() noexcept {
 
         Splits<','> items(contents);
 
-        for (StringView item = items.next();
-             item.data;
-             item = items.next()) {
+        for (StringView item = items.next(); item.data; item = items.next()) {
             item = item.substr(3);  // " 5 "
 
             size_t flavor = item.find(' ');
