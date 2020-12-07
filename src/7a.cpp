@@ -116,14 +116,6 @@ main() noexcept {
         return 1;
     }
 
-    size_t numItems = 0;
-    for (size_t i = 0; i < bags.size; i++) {
-        numItems += bags[i].parents.size;
-    }
-
-    // 594 types of bags with 1485 items.
-    sout << bags.size << " types of bags with " << numItems << " items\n";
-
     Bag* goldBag = names[goldName];
 
     Hashmap<Bag*, bool> seen(2 * 1024);
@@ -146,7 +138,7 @@ main() noexcept {
 
     size_t canContain = queue.size - 1;
 
-    sout << canContain << " bags can contain " << goldName << '\n';
+    sout << canContain << '\n';
 
     return 0;
 }
