@@ -87,16 +87,16 @@ main() noexcept {
         Bag* parent = getBag(outer, namePool, names, bags);
 
         StringView contents = line.substr(outer.size + 13);  // " bags contain"
+        if (contents[1] == 'n') {
+            // contents = " no other bags." so continue to next line
+            continue;
+        }
 
         Splits<','> items(contents);
 
         for (StringView item = items.next();
              item.data;
              item = items.next()) {
-            if (item[1] == 'n') {
-                continue;
-            }
-
             item = item.substr(3);  // " 5 "
 
             size_t flavor = item.find(' ');
