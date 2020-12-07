@@ -1,7 +1,7 @@
 // Time: O(n)
 // Memory: O(1)
 //
-// Processes 225 MB/sec on an Intel Xeon E5-2650
+// Processes 300 MB/sec on an Intel Core i5-1030NG7.
 
 #include "os/c.h"
 #include "util/int.h"
