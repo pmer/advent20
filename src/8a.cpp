@@ -19,29 +19,18 @@ struct Instruction {
     short data;
 };
 
-#define ONES(c) (c - '0')
-#define TENS(c) (ONES(c) * 10)
-#define HUNDREDS(c) (ONES(c) * 100)
-
-#define ONE_DIGIT_DECIMAL(s) \
-    (ONES((s)[0]))
-#define TWO_DIGIT_DECIMAL(s) \
-    (TENS((s)[0]) + ONES((s)[1]))
-#define THREE_DIGIT_DECIMAL(s) \
-    (HUNDREDS((s)[0]) + TENS((s)[1]) + ONES((s)[2]))
-
-short
-parseI(StringView s) {
+static short
+parseI(StringView s) noexcept {
     short i;
     switch (s.size) {
         case 2:
-            i = ONE_DIGIT_DECIMAL(s.data + 1);
+            i = (s[1] - '0') * 1;
             break;
         case 3:
-            i = TWO_DIGIT_DECIMAL(s.data + 1);
+            i = (s[1] - '0') * 10 + (s[2] - '0') * 1;
             break;
         case 4:
-            i = THREE_DIGIT_DECIMAL(s.data + 1);
+            i = (s[1] - '0') * 100 + (s[2] - '0') * 10 + (s[3] - '0') * 1;
             break;
     }
     return s[0] == '+' ? i : -i;

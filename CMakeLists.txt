@@ -206,6 +206,8 @@ target_link_libraries(7a tsunagari)
 
 add_executable(8a ${ADVENT}/src/8a.cpp)
 target_link_libraries(8a tsunagari)
+add_executable(8b ${ADVENT}/src/8b.cpp)
+target_link_libraries(8b tsunagari)
 
 include_directories(${HERE}/src)
 
