@@ -98,5 +98,3 @@ main() noexcept {
 
     return 0;
 }
-
-// Answer is not -1
