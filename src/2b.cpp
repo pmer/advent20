@@ -12,7 +12,7 @@
 
 int
 main() noexcept {
-    ReadLines lines("input");
+    ReadLines lines("2");
     if (!lines) {
         serr << "Could not read input\n";
         return 1;

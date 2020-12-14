@@ -6,7 +6,7 @@
 ## Jump start
 
 ```bash
-git clone --recursive https://github.com/pmer/advent20
+git clone --recurse-subdirectories https://github.com/pmer/advent20
 cd advent20
 bin/build.sh
 bin/test.sh
@@ -16,7 +16,7 @@ bin/test.sh
 ## Regular development
 
 ```bash
-git clone --recursive https://github.com/pmer/advent20
+git clone --recurse-subdirectories https://github.com/pmer/advent20
 cd advent20
 
 mkdir build
@@ -25,15 +25,20 @@ cmake .. -G Ninja
 ninja
 cd ..
 
-cd data
-cd 1
-../../build/1a  # the output should be 713184
-../../build/1b  # the output should be 261244452
+# Run programs
+cd input
+../build/1a  # the output should be 713184
+../build/1b  # the output should be 261244452
+../build/2a  # the output should be 483
+../build/2b  # the output should be 482
 cd ..
-cd 2
-../../build/2a  # the output should be 483
-../../build/2b  # the output should be 482
-cd ..
+
+# Check answers
+cd answers
+cat 1a  # the output should be 713184
+cat 1b  # the output should be 261244452
+cat 2a  # the output should be 483
+cat 2b  # the output should be 482
 ```
 
 
@@ -44,6 +49,6 @@ cd ..
 | Tsunagari/     | C++ standard library               |
 | answers/       | Answers to Advent of Code          |
 | bin/           | Instructions for CI on how to test |
-| data/          | Input files for Advent of Code     |
+| input/         | Input files for Advent of Code     |
 | src/           | Source code for Advent of Code     |
 | CMakeLists.txt | List of files to compile           |

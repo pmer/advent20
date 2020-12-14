@@ -15,7 +15,7 @@ int
 main() noexcept {
     // Read the input data.
     String data;
-    readFile("input", data);
+    readFile("1", data);
 
     // Parse the integers.
     Vector<StringView> lines;

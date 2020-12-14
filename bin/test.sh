@@ -1,14 +1,12 @@
 #!/bin/bash
 code=0
-cd data
+cd input
 for day in ?; do
-    cd $day
-
     for part in a b; do
         name=${day}${part}
-        exe=../../build/$name
+        exe=../build/$name
         out=out-$name
-        answer=../../answers/$name
+        answer=../answers/$name
 
         if [ ! -x $exe ]; then
             continue
@@ -16,8 +14,11 @@ for day in ?; do
 
         printf "$name... "
 
-        if ! $exe &>$out; then
-            echo exitted with $?
+        $exe &>$out
+        rv=$?
+
+        if [ $rv -ne 0 ]; then
+            echo exitted with $rv
             cat $out
             code=1
 
@@ -37,8 +38,6 @@ for day in ?; do
         echo
         rm -f $out
     done
-
-    cd ..
 done
 
 exit $code

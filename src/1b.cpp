@@ -14,7 +14,7 @@
 int
 main() noexcept {
     String data;
-    readFile("input", data);
+    readFile("1", data);
 
     Vector<StringView> lines;
     splitStr(lines, data, "\n");

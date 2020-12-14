@@ -66,7 +66,7 @@ getBag(StringView needle, StringPool& namePool,
 int
 main() noexcept {
     // Lazy iterator that yields one line of the file at a time.
-    ReadLines lines("input");
+    ReadLines lines("7");
     if (!lines) {
         serr << "Could not read input\n";
         return 1;
