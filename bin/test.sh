@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 code=0
 cd input
-for day in ?; do
+for day in *; do
     for part in a b; do
         name=${day}${part}
         exe=../build/$name
