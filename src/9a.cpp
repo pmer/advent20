@@ -1,9 +1,9 @@
-// Time: 
-// Memory: 
+// Time: O(n)
+// Memory: O(1)
 
+#include "util/hashtable.h"
 #include "util/int.h"
 #include "util/io.h"
-#include "util/hashtable.h"
 #include "util/string-view.h"
 #include "util/string2.h"
 
@@ -33,12 +33,9 @@ main() noexcept {
     int first, last;
     Hashmap<int, int> window(50), compliments(50);
 
-    int linenum = 0;
     int preamble = 25;
     for (StringView line = lines.next(); line.data; line = lines.next()) {
         int n = parseInt(line);
-        linenum += 1;
-
 
         if (preamble) {
             if (preamble == 25) {
