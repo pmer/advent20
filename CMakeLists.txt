@@ -219,6 +219,9 @@ target_link_libraries(10a tsunagari)
 add_executable(10b ${ADVENT}/src/10b.cpp)
 target_link_libraries(10b tsunagari)
 
+add_executable(11a ${ADVENT}/src/11a.cpp)
+target_link_libraries(11a tsunagari)
+
 add_executable(csv ${ADVENT}/src/csv.cpp)
 target_link_libraries(csv tsunagari)
 
