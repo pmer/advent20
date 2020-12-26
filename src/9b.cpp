@@ -1,13 +1,11 @@
 // Time: O(n)
-// Memory: O(1)
+// Memory: O(n)
 
 #include "util/int.h"
 #include "util/io.h"
-#include "util/move.h"
-#include "util/sort.h"
+#include "util/queue.h"
 #include "util/string-view.h"
 #include "util/string2.h"
-#include "util/vector.h"
 
 #define ANSWER 26796446
 
@@ -28,27 +26,29 @@ main() noexcept {
         return 1;
     }
 
-    // FIXME: Replace with queue.
-    Vector<int> window;
+    Queue<int> window;
     int sum = 0;
 
     for (StringView line = lines.next(); line.data; line = lines.next()) {
         int n = parseInt(line);
 
         sum += n;
-        window.push_back(n);
+        window.push(n);
 
         while (sum > ANSWER) {
-            sum -= window[0];
-            window.erase(0);
+            sum -= window.front();
+            window.pop();
         }
 
         if (sum == ANSWER) {
-            // No more searching. This is it.
-#define LESS(i, j) window[i] < window[j]
-#define SWAP(i, j) swap_(window[i], window[j])
-            QSORT(window.size, LESS, SWAP);
-            sout << window[0] + window[window.size - 1] << '\n';
+            // End of search. This is it!
+            int lo = INT32_MAX, hi = 0;
+            for (size_t i = 0; i < window.size; i++) {
+                int n = window[i];
+                lo = n < lo ? n : lo;
+                hi = n > hi ? n : hi;
+            }
+            sout << lo + hi << '\n';
             return 0;
         }
     }
