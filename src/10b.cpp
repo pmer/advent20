@@ -9,7 +9,7 @@
 #include "util/string2.h"
 #include "util/vector.h"
 
-static int
+static int64_t
 parseInt(StringView s) noexcept {
     switch (s.size) {
         case 1:
@@ -31,10 +31,10 @@ main() noexcept {
         return 1;
     }
 
-    Vector<int> adapters;
+    Vector<int64_t> adapters;
 
     for (StringView line = lines.next(); line.data; line = lines.next()) {
-        int n = parseInt(line);
+        int64_t n = parseInt(line);
         adapters.push_back(n);
     }
 
@@ -42,26 +42,27 @@ main() noexcept {
 #define SWAP(i, j) swap_(adapters[i], adapters[j])
     QSORT(adapters.size, LESS, SWAP);
 
-    int ones = 0;
-    int threes = 0;
+    Vector<int64_t> combos;
+    combos.resize(adapters[adapters.size - 1] + 1);
 
     // The charging outlet.
-    switch (adapters[0]) {
-        case 1: ones++;   break;
-        case 3: threes++; break;
-    }
+    combos[0] = 1;
 
     // Your adapters.
-    for (size_t i = 0; i < adapters.size - 1; i++) {
-        switch (adapters[i + 1] - adapters[i]) {
-            case 1: ones++;   break;
-            case 3: threes++; break;
+    for (int64_t jolts : adapters) {
+        int64_t sum = 0;
+        if (jolts >= 1) {
+            sum += combos[jolts - 1];
         }
+        if (jolts >= 2) {
+            sum += combos[jolts - 2];
+        }
+        if (jolts >= 3) {
+            sum += combos[jolts - 3];
+        }
+        combos[jolts] = sum;
     }
 
-    // Your laptop.
-    threes++;
-
-    sout << ones * threes << '\n';
+    sout << combos[combos.size - 1] << '\n';
     return 0;
 }
