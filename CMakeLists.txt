@@ -227,6 +227,13 @@ target_link_libraries(11b tsunagari)
 add_executable(csv ${ADVENT}/src/csv.cpp)
 target_link_libraries(csv tsunagari)
 
+add_executable(cc
+    ${ADVENT}/cc/cpp.cpp
+    ${ADVENT}/cc/main.cpp
+    ${ADVENT}/cc/string-pool.cpp
+)
+target_link_libraries(cc tsunagari)
+
 include_directories(${HERE}/src)
 
 
