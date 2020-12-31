@@ -2,6 +2,7 @@
 
 #include "options.h"
 #include "string-pool.h"
+#include "os/c.h"
 #include "os/os.h"
 #include "util/hashtable.h"
 #include "util/io.h"
@@ -67,7 +68,12 @@ test(uint32_t n, uint32_t bit) noexcept {
 
 static StringView
 file(Context* ctx) noexcept {
-    return ctx->currentFile[ctx->currentFile.size - 1];
+    if (ctx->currentFile.size) {
+        return ctx->currentFile[ctx->currentFile.size - 1];
+    }
+    else {
+        return "<top-level>";
+    }
 }
 
 static Output&
@@ -84,6 +90,8 @@ static StringView
 stripComments(bool* inComment, String* buf, StringView line) noexcept {
     // FIXME: Ignore characters inside quoted strings.
 
+    bool copied = false;
+
     size_t slash = line.find('/');
 
     while (slash != SV_NOT_FOUND) {
@@ -93,45 +101,75 @@ stripComments(bool* inComment, String* buf, StringView line) noexcept {
                 *inComment = false;
                 line = line.substr(slash + 1);
                 // Don't bother putting a while-loop to skip remaining slashses.
+                // (Skip the optimization.)
+                slash = line.find('/');
             }
             else {
-                // If there are more than one slashes, skip them all.
+                // Continue being in a multi-line comment.
+                // If there is more than one slashes, skip them all.
+                // (Optimization.)
                 slash += 1;
                 for (; slash < line.size && line[slash] == '/'; slash++)
                     ;
+
+                if (slash < line.size) {
+                    slash = line.find('/');
+                }
             }
         }
-        else if (slash == line.size) {
+        else if (slash == line.size - 1) {
+            // Not in a multi-line comment & the line ended with a slash.
             return line;
         }
         else if (line[slash + 1] == '/') {
-            // Single-line comment. Like this! :)
+            // Single-line comment. Like this one! :)
             return line.substr(0, slash);
         }
-        /*
         else if (line[slash + 1] == '*') {
-            *inComment = true;  // Only set if it ends up being this by the
-                                // time we're done.
+            // Start of a multi-line comment.
             size_t start = slash;
+            size_t end = line.find('/', start + 1);
 
-            // TODO: Everything here.
-            // TODO: Use buf.
+            // Check to see if the comment ends on the same line.
+            while (end != SV_NOT_FOUND) {
+                if (end > start + 2 && line[end - 1] == '*') {
+                    // The comment ended on the same line.
+                    break;
+                }
+                else {
+                    // Keep searching.
+                    end = line.find('/', end + 1);
+                }
+            }
 
-            if (slash > 0 && line[slash - 1] == '*') {
-                // End of multi-line comment.
-                *inComment = false;
-                line = line.substr(slash + 1);
-                // Don't bother putting a while-loop to skip remaining slashses.
+            if (end == SV_NOT_FOUND) {
+                // The multi-line comment will continue on the next line.
+                *inComment = true;
+                return line.substr(0, start);
+            }
+            else if (!copied) {
+                // Populate the buffer with our current data so we can remove
+                // the /* and */ pairing from within it since our "line"
+                // argument is read-only.
+                *buf = line.substr(0, start);
+                *buf << line.substr(end + 1);
+                line = *buf;
+                copied = true;
             }
             else {
-                // If there are more than one slashes, skip them all.
-                slash += 1;
-                for (; slash < line.size && line[slash] == '/'; slash++)
-                    ;
+                // We have a buffer in use. Remove the /* and */ pairing from
+                // within the buffer.
+                size_t len = end + 1 - start;
+                memmove(buf->data + start, buf->data + end, len);
+                line.size -= len;
             }
+            // Now that the slash at `slash` has been removed, we can perform a
+            // search starting from where that slash used to reside.
+            slash = line.find('/', start);
         }
-        */
         else {
+            // We're not in a multi-line comment and the slash we found did not
+            // have any play with comments. Continue searching.
             slash = line.find('/', slash + 1);
         }
     }
